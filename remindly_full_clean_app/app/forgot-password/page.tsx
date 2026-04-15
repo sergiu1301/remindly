@@ -4,6 +4,7 @@ import { useState } from 'react';
 import AuthShell from '@/components/AuthShell';
 import { getMessages } from '@/lib/messages';
 import { postJson } from '@/lib/auth-client';
+import Toast from '@/components/Toast';
 
 export default function ForgotPasswordPage() {
   const [language, setLanguage] = useState<'en' | 'ro'>('en');
@@ -28,8 +29,8 @@ export default function ForgotPasswordPage() {
       <h2 className="panelTitle">{t.forgotTitle}</h2>
       <p className="panelSubtitle">{t.forgotSubtitle}</p>
 
-      {message ? <div className="alert alertSuccess">{message}</div> : null}
-
+      {message && <Toast message={message} onClose={() => setMessage('')} />}
+        
       <form className="form" onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">{t.email}</label>
