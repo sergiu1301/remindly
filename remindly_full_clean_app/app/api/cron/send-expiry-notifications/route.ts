@@ -31,114 +31,103 @@ async function runCronJob() {
         to: reminder.user.email,
         subject: `Reminder: ${reminder.title}`,
         html: `
-          <div style="margin:0;padding:0;background:#0b1220;color:#ffffff !important;font-family:Arial,sans-serif;">
-  
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+<div style="margin:0;padding:0;background:#0b1220;color:#ffffff;font-family:Arial,sans-serif;width:100%;">
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0;padding:0;background:#0b1220;">
     <tr>
       <td align="center">
 
-        <table width="560" cellpadding="0" cellspacing="0" style="background:#111827;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.6);">
-
-          <!-- HEADER -->
+        <!-- CONTAINER -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;">
           <tr>
-            <td style="
-              padding:30px 32px 20px 32px;
-              text-align:center;
-              background:#111827;
-            ">
-              
-              <span style="
-                display:block;
-                font-size:22px;
-                font-weight:700;
-                color:#ffffff !important;
-              ">
-                Remindly
-              </span>
+            <td style="padding:20px;">
 
-              <span style="
-                display:block;
-                margin-top:6px;
-                font-size:13px;
-                color:#cbd5f5 !important;
+              <table width="100%" cellpadding="0" cellspacing="0" style="
+                background:#111827;
+                border-radius:16px;
+                overflow:hidden;
               ">
-                Smart reminders for everything
-              </span>
+
+                <!-- HEADER -->
+                <tr>
+                  <td style="
+                    padding:24px;
+                    text-align:center;
+                    background:#0f172a;
+                    color:#ffffff;
+                  ">
+                    <div style="font-size:20px;font-weight:700;">
+                      Remindly
+                    </div>
+                    <div style="margin-top:6px;font-size:12px;color:#9ca3af;">
+                      Smart reminders for everything
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- BODY -->
+                <tr>
+                  <td style="padding:24px;color:#e5e7eb;">
+
+                    <div style="font-size:20px;font-weight:700;margin-bottom:12px;color:#ffffff;">
+                      🔔 ${reminder.title}
+                    </div>
+
+                    <div style="font-size:15px;line-height:1.6;color:#d1d5db;margin-bottom:16px;">
+                      This reminder is due on 
+                      <span style="color:#ffffff;font-weight:600;">
+                        ${reminder.dueDate.toLocaleDateString()}
+                      </span>.
+                    </div>
+
+                    <!-- INFO -->
+                    <div style="
+                      background:#020617;
+                      border-radius:10px;
+                      padding:14px;
+                      border:1px solid #1f2937;
+                    ">
+                      <div style="font-size:12px;color:#6b7280;">Category</div>
+                      <div style="font-size:14px;color:#ffffff;margin-bottom:8px;">
+                        ${reminder.category}
+                      </div>
+
+                      <div style="font-size:12px;color:#6b7280;">Notify before</div>
+                      <div style="font-size:14px;color:#ffffff;">
+                        ${reminder.notifyBefore} day(s)
+                      </div>
+                    </div>
+
+                    ${
+                      reminder.description
+                        ? `
+                      <div style="margin-top:16px;font-size:14px;color:#cbd5f5;">
+                        ${reminder.description}
+                      </div>
+                    `
+                        : ''
+                    }
+
+                  </td>
+                </tr>
+
+                <!-- FOOTER -->
+                <tr>
+                  <td style="
+                    padding:16px;
+                    text-align:center;
+                    font-size:12px;
+                    color:#6b7280;
+                    background:#111827;
+                  ">
+                    © ${new Date().getFullYear()} Remindly
+                  </td>
+                </tr>
+
+              </table>
 
             </td>
           </tr>
-
-          <!-- DIVIDER -->
-          <tr>
-            <td style="padding:12px 32px;">
-              <div style="height:1px;background:#374151;width:100%;"></div>
-            </td>
-          </tr>
-
-          <!-- BODY -->
-          <tr>
-            <td style="padding:20px 32px 32px 32px;background:#111827;color:#e5e7eb !important;">
-
-              <span style="
-                display:block;
-                font-size:22px;
-                font-weight:700;
-                color:#ffffff !important;
-                margin-bottom:12px;
-              ">
-                ${reminder.title}
-              </span>
-
-              <span style="
-                display:block;
-                font-size:15px;
-                color:#d1d5db !important;
-                line-height:1.6;
-                margin-bottom:16px;
-              ">
-                This reminder is due on 
-                <strong style="color:#ffffff">
-                  ${reminder.dueDate.toLocaleDateString()}
-                </strong>.
-              </span>
-
-              <span style="
-                display:block;
-                font-size:14px;
-                color:#9ca3af !important;
-                line-height:1.6;
-              ">
-                Category: <span style="color:#ffffff">${reminder.category}</span><br/>
-                Notify before: <span style="color:#ffffff">${reminder.notifyBefore} day(s)</span>
-              </span>
-
-              <!-- OPTIONAL DESCRIPTION -->
-              ${
-                reminder.description
-                  ? `
-                <div style="margin-top:16px;color:#d1d5db;font-size:14px;">
-                  ${reminder.description}
-                </div>
-              `
-                  : ''
-              }
-
-            </td>
-          </tr>
-
-          <!-- FOOTER -->
-          <tr>
-            <td style="
-              padding:20px;
-              text-align:center;
-              font-size:12px;
-              color:#6b7280 !important;
-              background:#111827;
-            ">
-              © ${new Date().getFullYear()} Remindly
-            </td>
-          </tr>
-
         </table>
 
       </td>
@@ -146,7 +135,7 @@ async function runCronJob() {
   </table>
 
 </div>
-        `
+`
       });
 
       await prisma.reminder.update({
