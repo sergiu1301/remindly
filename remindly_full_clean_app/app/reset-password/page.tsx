@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AuthShell from '@/components/AuthShell';
 import { getMessages } from '@/lib/messages';
@@ -8,7 +8,12 @@ import { postJson } from '@/lib/auth-client';
 
 export default function ResetPasswordPage() {
   const params = useSearchParams();
-  const token = useMemo(() => params.get('token') || '', [params]);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setToken(params.get('token'));
+  }, [params]);
+
   const [language, setLanguage] = useState<'en' | 'ro'>('en');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
