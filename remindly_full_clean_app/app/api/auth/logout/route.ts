@@ -1,0 +1,7 @@
+import { NextResponse } from 'next/server';
+import { clearSessionCookie } from '@/lib/auth-server';
+
+export async function POST() {
+  clearSessionCookie();
+  return NextResponse.redirect(new URL('/login', process.env.APP_URL || 'http://localhost:3000'));
+}

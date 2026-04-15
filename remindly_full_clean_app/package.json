@@ -1,0 +1,30 @@
+{
+  "name": "remindly-full-clean-app",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:reset": "prisma db push --force-reset",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "5.17.0",
+    "bcryptjs": "2.4.3",
+    "jose": "5.2.3",
+    "next": "14.2.35",
+    "nodemailer": "6.9.14",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.7.4",
+    "@types/react": "18.3.3",
+    "prisma": "5.17.0",
+    "typescript": "5.6.3"
+  }
+}
