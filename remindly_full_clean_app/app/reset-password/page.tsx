@@ -1,16 +1,17 @@
 'use client';
-export const dynamic = 'force-dynamic';
 
-import { useMemo, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AuthShell from '@/components/AuthShell';
 import { getMessages } from '@/lib/messages';
 import { postJson } from '@/lib/auth-client';
 
-export default function ResetPasswordPage() {
+export const dynamic = 'force-dynamic';
+
+function ResetPasswordContent() {
   const params = useSearchParams();
   const token = params.get('token');
-  
+
   const [language, setLanguage] = useState<'en' | 'ro'>('en');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -18,7 +19,11 @@ export default function ResetPasswordPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const result = await postJson('/api/auth/reset-password', { token, password });
+
+    const result = await postJson('/api/auth/reset-password', {
+      token,
+      password,
+    });
 
     if (!result.ok) {
       setMessage(result.json.error || 'Could not reset password.');
@@ -38,11 +43,26 @@ export default function ResetPasswordPage() {
       <form className="form" onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">{t.password}</label>
-          <input className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            className="input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
-        <button className="button" type="submit">{t.savePassword}</button>
+        <button className="button" type="submit">
+          {t.savePassword}
+        </button>
       </form>
     </AuthShell>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className="pageShell">Loading...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
