@@ -36,6 +36,11 @@ export default async function DashboardPage() {
   ).length;
   const overdue = user.reminders.filter((x) => !x.isCompleted && x.dueDate < now).length;
 
+  const remindersFormatted = user.reminders.map((r) => ({
+  ...r,
+  dueDate: r.dueDate.toISOString(),
+}));
+
   return (
     <div className="pageShell">
       <div className="appContainer">
@@ -71,7 +76,7 @@ export default async function DashboardPage() {
             </a>
           </div>
 
-          <ReminderList reminders={user.reminders} t={t}/>
+          <ReminderList reminders={remindersFormatted} t={t}/>
         </section>
       </div>
     </div>
